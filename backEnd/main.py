@@ -15,6 +15,7 @@ class employee(BaseModel):
 employeeList = [
     employee(name="Alice", designation="Developer"),
     employee(name="Bob", designation="Designation"),
+    employee(name="MD AHTEAR RAHMAN", designation="SR. SOFTWARTE ENGINEER"),
 ]
 
 app =FastAPI()

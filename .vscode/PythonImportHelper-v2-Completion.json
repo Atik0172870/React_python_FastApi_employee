@@ -86,7 +86,7 @@
         "kind": 6,
         "importPath": "backEnd.main",
         "description": "backEnd.main",
-        "peekOfCode": "class employee(BaseModel):\n    id:UUID = Field(default_factory=uuid4)  # Auto-generate UUID\n    name:str\n    designation:str\nemployeeList = [\n    employee(name=\"Alice\", designation=\"Developer\"),\n    employee(name=\"Bob\", designation=\"Designation\"),\n]\napp =FastAPI()\norigins=[",
+        "peekOfCode": "class employee(BaseModel):\n    id:UUID = Field(default_factory=uuid4)  # Auto-generate UUID\n    name:str\n    designation:str\nemployeeList = [\n    employee(name=\"Alice\", designation=\"Developer\"),\n    employee(name=\"Bob\", designation=\"Designation\"),\n    employee(name=\"MD AHTEAR RAHMAN\", designation=\"SR. SOFTWARTE ENGINEER\"),\n]\napp =FastAPI()",
         "detail": "backEnd.main",
         "documentation": {}
     },
@@ -149,7 +149,7 @@
         "kind": 5,
         "importPath": "backEnd.main",
         "description": "backEnd.main",
-        "peekOfCode": "employeeList = [\n    employee(name=\"Alice\", designation=\"Developer\"),\n    employee(name=\"Bob\", designation=\"Designation\"),\n]\napp =FastAPI()\norigins=[\n    \"http://localhost:5173\"\n]\napp.add_middleware(\n    CORSMiddleware,",
+        "peekOfCode": "employeeList = [\n    employee(name=\"Alice\", designation=\"Developer\"),\n    employee(name=\"Bob\", designation=\"Designation\"),\n    employee(name=\"MD AHTEAR RAHMAN\", designation=\"SR. SOFTWARTE ENGINEER\"),\n]\napp =FastAPI()\norigins=[\n    \"http://localhost:5173\"\n]\napp.add_middleware(",
         "detail": "backEnd.main",
         "documentation": {}
     },

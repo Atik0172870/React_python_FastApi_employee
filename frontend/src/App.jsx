@@ -41,27 +41,27 @@ function App() {
 
   return (
     <>
-      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="javascript:void(0)">Logo</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="javascript:void(0)">Logo</a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Link</a>
+          <div className="collapse navbar-collapse" id="mynavbar">
+            <ul className="navbar-nav me-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="javascript:void(0)">Link</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Link</a>
+              <li className="nav-item">
+                <a className="nav-link" href="javascript:void(0)">Link</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">Link</a>
+              <li className="nav-item">
+                <a className="nav-link" href="javascript:void(0)">Link</a>
               </li>
             </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="text" placeholder="Search" />
-              <button class="btn btn-primary" type="button">Search</button>
+            <form className="d-flex">
+              <input className="form-control me-2" type="text" placeholder="Search" />
+              <button className="btn btn-primary" type="button">Search</button>
             </form>
           </div>
         </div>
@@ -69,7 +69,7 @@ function App() {
       <div className='container-fluid p-3'>
         <div className='card'>
           <div className='card-header'>React + FastAPI Project</div>
-          <div className='card body p-4 border-0 rounded-0'>
+          <div className='card body m-4 rounded-0'>
             <div className='card border-0 rounded-0'>
               <div className='card-header'>Add employee</div>
               <div className='card-body'>
@@ -86,31 +86,32 @@ function App() {
                 </form>
               </div>
             </div>
-            <div className='card mt-4'>
-              <div className='card-header'>Employe List</div>
-              <div className='card-body'>
-                <table className='table'>
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Designation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {
-                      employeeList.map(item => {
-                        return <tr>
-                          <td>{item.id}</td>
-                          <td>{item.name}</td>
-                          <td>{item.designation}</td>
-                        </tr>
-                      })
-                    }
 
-                  </tbody>
-                </table>
-              </div>
+          </div>
+          <div className='card m-3'>
+            <div className='card-header'>Employe List</div>
+            <div className='card-body'>
+              <table className='table'>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    employeeList.map(item => {
+                      return <tr key={item.id}>
+                        <td>{item.id}</td>
+                        <td>{item.name}</td>
+                        <td>{item.designation}</td>
+                      </tr>
+                    })
+                  }
+
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
