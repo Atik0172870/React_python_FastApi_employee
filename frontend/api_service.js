@@ -36,7 +36,7 @@ export const updateEmployee = (data) =>
     })
 
 export const deleteEmployee = (id) =>
-    apiFetch(`/delete_employee/${id}`, {
+    apiFetch(`/delete/${id}`, {
         method: "DELETE"
     });
 

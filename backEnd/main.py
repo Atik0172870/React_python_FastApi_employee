@@ -52,10 +52,7 @@ def update_employee(employee:employee):
         print(employee)
         for index,emp in enumerate(employeeList):
             if emp.id==employee.id:
-                emp.name=employee.name
-                emp.designation=employee.designation
                 employeeList[index]=employee
-                print(employeeList)
                 return employee
     else:
        raise HTTPException(status_code=404, detail="Employee not found") 

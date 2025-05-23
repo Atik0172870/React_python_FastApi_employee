@@ -1,21 +1,40 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { addEmployee, getEmployee } from '../api_service';
+import { addEmployee, deleteEmployee, getEmployee, updateEmployee } from '../api_service';
 
 function App() {
+
+  useEffect(() => {
+    getAllEmployee();
+  }, [])
+
   const [employeeList, setEmployeelist] = useState([]);
   const [name, setemployeename] = useState('');
   const [designation, setdesignation] = useState('');
+  const [selectedEmployee, setSelectedEmployee] = useState({});
+  const [isEdit, setEdit] = useState(false);
+  const [searchEmployee, setSearchsetEmployeelist] = useState({});
 
 
-  useEffect(() => {
+
+  const onSelect = (item) => {
+    let isUpdate = true;
+    if (selectedEmployee.id == item.id) {
+      item = {};
+      isUpdate = false;
+
+    }
+    setEdit(isUpdate);
+    setemployeename(item.name || '');
+    setdesignation(item.designation || '')
+    setSelectedEmployee(item);
+  }
+  const getAllEmployee = () => {
     getEmployee().then(data => {
       console.log(data);
       setEmployeelist(data);
+      setSearchsetEmployeelist(data);
     })
-  }, [])
-
+  }
   const onchaneName = (e) => {
     const { name, value } = e.target;
     setemployeename(value);
@@ -27,16 +46,35 @@ function App() {
   }
 
   const saveEmployee = () => {
-    addEmployee({ name: name, designation: designation }).then(resp => {
-      console.log(resp);
-      getEmployee().then(data => {
-        console.log(data);
-        setemployeename('');
-        setdesignation('')
-        setEmployeelist(data);
+    if (isEdit) {
+      updateEmployee({ id: selectedEmployee.id, name: name, designation: designation }).then(resp => {
+        console.log(resp);
+        getAllEmployee();
       })
+    }
+    else {
+      addEmployee({ name: name, designation: designation }).then(resp => {
+        console.log(resp);
+        getAllEmployee();
+      })
+    }
+    setemployeename('');
+    setdesignation('')
+  }
 
+  const deleteIEmployeeById = (id) => {
+    deleteEmployee(id).then(resp => {
+      console.log(resp);
+      getAllEmployee();
     })
+  }
+
+  const onSearch = (event) => {
+    const { name, value } = event.target;
+    const serchemployee = searchEmployee.filter(x => x.name.toLowerCase().includes(value.toLowerCase()) || x.designation.toLowerCase().includes(value.toLowerCase()));
+    setEmployeelist(serchemployee);
+    
+
   }
 
   return (
@@ -76,36 +114,45 @@ function App() {
                 <form action="/action_page.php">
                   <div className="form-group">
                     <label htmlFor="email">Name :</label>
-                    <input type="text" onChange={onchaneName} value={name} className="form-control" id="name" name='name' />
+                    <input type="text" onChange={onchaneName} value={name || ''} className="form-control" id="name" name='name' />
                   </div>
                   <div className="form-group mb-3">
                     <label htmlFor="pwd">Designation :</label>
-                    <input type="text" onChange={onchaneDesignation} value={designation} className="form-control" id="designation" name='designation' />
+                    <input type="text" onChange={onchaneDesignation} value={designation || ''} className="form-control" id="designation" name='designation' />
                   </div>
-                  <button type="button" onClick={saveEmployee} className="btn btn-secondary">Submit</button>
+                  <button type="button" onClick={saveEmployee} className="btn btn-secondary">{isEdit ? 'Update' : 'Save'}</button>
                 </form>
               </div>
             </div>
 
           </div>
           <div className='card m-3'>
-            <div className='card-header'>Employe List</div>
-            <div className='card-body'>
-              <table className='table'>
+            <div className='card-header d-flex align-items-center justify-content-between'>
+              <span>Employe List</span>
+              <span className='d-flex align-content-center gap-4'>
+                <input className="form-control form-control-sm me-2 w-auto" type="text" placeholder="Search" onChange={onSearch} />
+                <span className='btn btn-sm' title='refresh' onClick={() => { getAllEmployee() }}>&#128260;</span>
+              </span>
+
+            </div>
+            <div className='card-body table-responsive'>
+              <table className='table table-sm'>
                 <thead>
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Designation</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {
                     employeeList.map(item => {
-                      return <tr key={item.id}>
+                      return <tr key={item.id} onClick={() => onSelect(item)} className={`${selectedEmployee.id == item.id ? "table-secondary" : ""}`}>
                         <td>{item.id}</td>
                         <td>{item.name}</td>
                         <td>{item.designation}</td>
+                        <td><span className='btn btn-sm btn-outline-danger' onClick={() => deleteIEmployeeById(item.id)}>Delete</span></td>
                       </tr>
                     })
                   }
